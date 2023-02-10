@@ -1,0 +1,64 @@
+ {% include "header.html" %}
+	<style>
+
+	body.modal-open div.modal-backdrop { 
+		z-index: 0; 
+	}
+
+	</style>
+        <div class="page-wrapper">
+            <div class="container-fluid">
+				<div class="row">
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-body"> 
+								<div class = "row">
+									<div class = "col-md-8 col-xs-8">
+										<p style="font-size:20px" > Write Key :  
+											<span id = "writekey" >
+											{% if write_key %}
+												{{ write_key }}
+											{% endif %}
+											</span>
+										</p>
+									</div>
+									<div class = "col-md-2 col-xs-2">
+									  <button type="button" class="btn btn-group" data-clipboard-target="#writekey" ><i class="fa fa-clipboard"></i></button>
+									</div>
+								  </div>
+							</div>
+                        </div>
+                    </div>
+                </div>
+
+				<div class="row">
+                    <div class="col-5">
+                        <div class="card">
+                            <div class="card-body"> 
+								<div class="button-list">
+								<form method="post">
+								<button type="submit" id="generate" name="generate" class="btn btn-default m-b-10">Generate new API Keys</button>
+								</form>
+								</div>
+							</div>
+                        </div>
+                    </div>
+                </div>	
+	
+				
+            </div>            
+        </div>
+    
+    <script src="/static/js/lib/datatables/datatables.min.js"></script>
+    <script src="/static/js/lib/datatables/datatables-init.js"></script>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+	
+	 {% include "footer.html" %}
+	 
+	<script>
+	$( document ).ready(function() {
+	  var clipboard = new Clipboard('.btn-group');
+	 
+	});
+	</script>

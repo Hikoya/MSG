@@ -1,0 +1,1099 @@
+	{% include "header.html" %}
+	
+        <div class="page-wrapper">
+            <div class="container-fluid">
+			
+				{% if node_result is defined and node_result|length > 0 %}
+				{% for node in node_result %}
+					
+				<div class="row">
+                    <div class="col-md-3">
+                        <div class="card bg-primary p-20">
+                            <div class="media widget-ten">
+                                <div class="media-left meida media-middle">
+                                    <span class="f-s-30">1</span>
+                                </div>
+                                <div class="media-body media-text-right">
+                                    <h2 class="color-white" id="id_{{ node['device_id'] }}_channel_1_value"></h2>
+                                    <p class="m-b-0 id_{{ node['device_id'] }}_channel-name" id="id_{{ node['device_id'] }}_channel_1_name"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-pink p-20">
+                            <div class="media widget-ten">
+                                <div class="media-left meida media-middle">
+                                    <span class="f-s-30">2</span>
+                                </div>
+                                <div class="media-body media-text-right">
+                                    <h2 class="color-white" id="id_{{ node['device_id'] }}_channel_2_value"></h2>
+                                    <p class="m-b-0 id_{{ node['device_id'] }}_channel-name" id="id_{{ node['device_id'] }}_channel_2_name"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-success p-20">
+                            <div class="media widget-ten">
+                                <div class="media-left meida media-middle">
+                                    <span class="f-s-30">3</span>
+                                </div>
+                                <div class="media-body media-text-right">
+                                    <h2 class="color-white" id="id_{{ node['device_id'] }}_channel_3_value"></h2>
+                                    <p class="m-b-0 id_{{ node['device_id'] }}_channel-name" id="id_{{ node['device_id'] }}_channel_3_name"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-danger p-20">
+                            <div class="media widget-ten">
+                                <div class="media-left meida media-middle">
+                                    <span class="f-s-30">4</span>
+                                </div>
+                                <div class="media-body media-text-right">
+                                    <h2 class="color-white" id="id_{{ node['device_id'] }}_channel_4_value"></h2>
+                                    <p class="m-b-0 id_{{ node['device_id'] }}_channel-name" id="id_{{ node['device_id'] }}_channel_4_name"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>				
+				
+				<div class="row">
+					<div class="col-md-2">
+						<div class="select-style">
+						<select id="id_{{ node['device_id'] }}_intervalType">
+							{% for i in range(20000) %}
+								{% if i % 50 == 0 and i != 0 %}
+								<option value="{{ i }}">{{ i }}</option>
+								{% endif %}
+							{% endfor %}
+						</select>
+						</div>		
+					</div>
+					
+					<div class="col-md-2">
+						<div class="select-style">
+						<select id="id_{{ node['device_id'] }}_chartType">
+							<option value="spline">Spline</option>
+							<option value="area">Area</option>
+							<option value="column">Column</option>
+							<option value="line">Line</option>
+							<option value="bar">Bar</option>	
+							<option value="areaspline">Area Spline</option>
+							<option value="scatter">Scatter</option>
+						</select>
+						</div>		
+					</div>
+					
+					<div class="col-md-4">
+						<span id="device_id">ID: {{ node['device_id'] }}  <br> Description: {{ node['description'] }} <br> Location: {{ node['location'] }}</span>	
+					</div>
+					
+					<div class="col-md-3">
+						<span>Average</span>
+						<div class="select-style">
+						<select id="id_{{ node['device_id'] }}_averageInterval">
+							<option value="daily">Daily</option>
+							<option value="weekly">Weekly</option>
+							<option value="monthly">Monthly</option>
+							<option value="yearly">Yearly</option>
+						</select>
+						</div>		
+					</div>
+				</div>
+				
+				<section>
+				<div class="container">
+					<div class="row">
+						<div class="col-md-6">
+							<span>Channel 1 Max: <span id = "id_{{ node['device_id'] }}_channel_1_max_value"></span></span>	<br>
+							<span>Channel 2 Max: <span id = "id_{{ node['device_id'] }}_channel_2_max_value"></span></span>	<br>
+							<span>Channel 3 Max: <span id = "id_{{ node['device_id'] }}_channel_3_max_value"></span></span>	<br>
+							<span>Channel 4 Max: <span id = "id_{{ node['device_id'] }}_channel_4_max_value"></span></span>	<br>
+							
+						</div>
+						<div class="col-md-6">
+							<span>Channel 1 Min: <span id = "id_{{ node['device_id'] }}_channel_1_min_value"></span></span> <br>
+							<span>Channel 2 Min: <span id = "id_{{ node['device_id'] }}_channel_2_min_value"></span></span>	<br>
+							<span>Channel 3 Min: <span id = "id_{{ node['device_id'] }}_channel_3_min_value"></span></span>	<br>
+							<span>Channel 4 Min: <span id = "id_{{ node['device_id'] }}_channel_4_min_value"></span></span>	<br>
+						</div>
+					</div>
+				</div>
+				</section>
+				
+				<section>
+                <div class="row">     
+					<div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body p-b-0" >
+                                <ul class="nav nav-tabs customtab" role="tablist" id="id_{{ node['device_id'] }}_tablist">
+                                    <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#id_{{ node['device_id'] }}_voltage" role="tab"><span class="hidden-sm-up"></span> <span class="hidden-xs-down">Voltage</span></a> </li>
+                                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#id_{{ node['device_id'] }}_frequency" role="tab"><span class="hidden-sm-up"></span> <span class="hidden-xs-down">Frequency</span></a> </li>
+                                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#id_{{ node['device_id'] }}_current" role="tab"><span class="hidden-sm-up"></span> <span class="hidden-xs-down">Current</span></a> </li>
+									<li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#id_{{ node['device_id'] }}_power" role="tab"><span class="hidden-sm-up"></span> <span class="hidden-xs-down">Power</span></a> </li>
+									<li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#id_{{ node['device_id'] }}_energy" role="tab"><span class="hidden-sm-up"></span> <span class="hidden-xs-down">Energy</span></a> </li>
+                                </ul>
+                           
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="id_{{ node['device_id'] }}_voltage" role="tabpanel">
+                                        <div class="p-20">
+                                            <div id="id_{{ node['device_id'] }}_voltage-chart" style="min-width: 300px; height: 400px; margin: 0 auto"></div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane  p-20" id="id_{{ node['device_id'] }}_frequency" role="tabpanel">
+										<div class="p-20">
+                                            <div id="id_{{ node['device_id'] }}_frequency-chart" style="min-width: 300px; height: 400px; margin: 0 auto"></div>
+                                        </div>
+									</div>
+                                    <div class="tab-pane p-20" id="id_{{ node['device_id'] }}_current" role="tabpanel">
+										<div class="p-20">
+                                            <div id="id_{{ node['device_id'] }}_current-chart" style="min-width: 300px; height: 400px; margin: 0 auto"></div>
+                                        </div>
+									</div>
+									<div class="tab-pane p-20" id="id_{{ node['device_id'] }}_power" role="tabpanel">
+										<div class="p-20">
+                                            <div id="id_{{ node['device_id'] }}_power-chart" style="min-width: 300px; height: 400px; margin: 0 auto"></div>
+                                        </div>
+									</div>
+									<div class="tab-pane p-20" id="id_{{ node['device_id'] }}_energy" role="tabpanel">
+										<div class="p-20">
+                                            <div id="id_{{ node['device_id'] }}_energy-chart" style="min-width: 300px; height: 400px; margin: 0 auto"></div>
+                                        </div>
+									</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+				</div>
+				</section>
+				{% endfor %}
+				{% else %}
+				<div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body"> 
+								<div class = "row">
+									<span style="margin-left:200px;">Hello, you have no registered nodes yet. Try registering one using the page on your left!  </span>
+								</div>
+							</div>
+                        </div>
+                    </div>
+                </div>	
+				
+				{% endif %}
+			
+		
+            </div>            
+        </div>
+    
+	{% include "footer.html" %}
+	
+	{% if node_result is defined %}
+	{% for node in node_result %}
+					
+	<script>
+	var id_{{ node["device_id"] }}_voltage; // global
+	var id_{{ node["device_id"] }}_frequency;
+	var id_{{ node["device_id"] }}_energy;
+	var id_{{ node["device_id"] }}_current;
+	var id_{{ node["device_id"] }}_power;
+	
+	var id_{{ node["device_id"] }}_timeOut = 10000;
+	var id_{{ node["device_id"] }}_chartType;
+	
+	var id_{{ node["device_id"] }}_intervalType;
+	
+	$(document).ready(function() {
+			
+		id_{{ node["device_id"] }}_chartType = $('#id_{{ node["device_id"] }}_chartType').val();
+		id_{{ node["device_id"] }}_intervalType = $('#id_{{ node["device_id"] }}_intervalType').val();
+		
+		Highcharts.setOptions({   // This is for all plots, change Date axis to local timezone
+                global : {
+                    useUTC : false
+                }
+        });
+			
+		id_{{ node["device_id"] }}_drawVoltage();
+		id_{{ node["device_id"] }}_drawFrequency();
+		id_{{ node["device_id"] }}_drawCurrent();
+		id_{{ node["device_id"] }}_drawPower();
+		id_{{ node["device_id"] }}_drawEnergy();
+		
+		id_{{ node["device_id"] }}_calculateAverage();
+		setInterval(function(){
+            id_{{ node["device_id"] }}_calculateAverage();
+        }, id_{{ node["device_id"] }}_timeOut);
+		
+		id_{{ node["device_id"] }}_calculateMaxMin();
+		setInterval(function(){
+            id_{{ node["device_id"] }}_calculateMaxMin();
+        }, id_{{ node["device_id"] }}_timeOut);
+		
+	});
+	
+	function id_{{ node["device_id"] }}_drawVoltage(){
+	
+	var oldTimestamp = '';
+	
+	
+	id_{{ node["device_id"] }}_voltage = new Highcharts.Chart({
+        chart: {
+            renderTo: 'id_{{ node["device_id"] }}_voltage-chart',
+            type: id_{{ node["device_id"] }}_chartType,
+            events: {
+                load: function() {
+					id_{{ node["device_id"] }}_voltage = this; 
+					id_{{ node["device_id"] }}_requestVoltage(oldTimestamp);
+				}
+            }
+        },
+        title: {
+            text: ''
+        },
+        xAxis: {
+            type: 'linear',
+            tickInterval: 10,
+        },
+        yAxis: {
+            minPadding: 0.2,
+            maxPadding: 0.2,
+            title: {
+                text: 'Value'
+            }
+        },
+        series: [{
+            name: 'Channel 1',
+            data: []
+        },
+		{
+            name: 'Channel 2',
+            data: []
+        },
+		{
+            name: 'Channel 3',
+            data: []
+        },
+		{
+            name: 'Channel 4',
+            data: []
+        }]
+    })       
+	
+	id_{{ node["device_id"] }}_getAllVoltage();
+		
+	}
+	
+	function id_{{ node["device_id"] }}_requestVoltage(oldTimestamp) {
+		
+		$.ajax({
+        url: 'ajax',
+		type: 'POST',
+		async: false,
+		data: {data: 'voltage' , device_id : '{{ node["device_id"] }}'},
+		datatype: "json",
+        success: function(point) {
+				
+				var d1 = new Date(oldTimestamp);
+				var d2 = new Date(point.timestamp[0]);
+				
+				console.log(d1);
+				console.log(d2);
+				
+                if(d1.getTime() !== d2.getTime()){ 
+				
+				  var channel1 = [point.timestamp[0] , point.channel1[0] ];
+                  id_{{ node["device_id"] }}_voltage.series[0].addPoint(channel1, true, id_{{ node["device_id"] }}_voltage.series[0].data.length > id_{{ node["device_id"] }}_intervalType); 
+				  
+				  var channel2 = [point.timestamp[0], point.channel2[0]];
+				  id_{{ node["device_id"] }}_voltage.series[1].addPoint(channel2, true, id_{{ node["device_id"] }}_voltage.series[1].data.length > id_{{ node["device_id"] }}_intervalType); 
+				  
+				  var channel3 = [point.timestamp[0], point.channel3[0]];
+				  id_{{ node["device_id"] }}_voltage.series[2].addPoint(channel3, true, id_{{ node["device_id"] }}_voltage.series[2].data.length > id_{{ node["device_id"] }}_intervalType);
+				  
+				  var channel4 = [point.timestamp[0], point.channel4[0]];
+				  id_{{ node["device_id"] }}_voltage.series[3].addPoint(channel4, true, id_{{ node["device_id"] }}_voltage.series[3].data.length > id_{{ node["device_id"] }}_intervalType);
+				  
+                  setTimeout(function(){
+                    id_{{ node["device_id"] }}_requestVoltage(point.timestamp[0]);  
+                  }, id_{{ node["device_id"] }}_timeOut);  
+				  
+				
+                }
+                else{
+					
+                  setTimeout(function(){
+                    id_{{ node["device_id"] }}_requestVoltage(oldTimestamp);
+                  }, id_{{ node["device_id"] }}_timeOut);
+				  
+                }                                       
+              
+        },
+        cache: false
+		});
+	}
+	
+	function id_{{ node["device_id"] }}_drawFrequency(){
+	
+	var oldTimestamp = '';
+	
+	id_{{ node["device_id"] }}_frequency = new Highcharts.Chart({
+        chart: {
+            renderTo: 'id_{{ node["device_id"] }}_frequency-chart',
+            type: id_{{ node["device_id"] }}_chartType,
+            events: {
+                load: function() {
+					id_{{ node["device_id"] }}_frequency = this; 
+					id_{{ node["device_id"] }}_requestFrequency(oldTimestamp);
+				}
+            }
+        },
+        title: {
+            text: ''
+        },
+        xAxis: {
+            type: 'linear',
+            tickInterval: 10,
+        },
+        yAxis: {
+            minPadding: 0.2,
+            maxPadding: 0.2,
+            title: {
+                text: 'Value'
+            }
+        },
+        series: [{
+            name: 'Channel 1',
+			data: []
+        },
+		{
+            name: 'Channel 2',
+            data: []
+        },
+		{
+            name: 'Channel 3',
+            data: []
+        },
+		{
+            name: 'Channel 4',
+            data: []
+        }]
+    });        
+	
+	id_{{ node["device_id"] }}_getAllFrequency();
+	}
+	
+	function id_{{ node["device_id"] }}_requestFrequency(oldTimestamp) {
+		
+		$.ajax({
+        url: 'ajax',
+		type: 'POST',
+		async: false,
+		data: {data: 'frequency' , device_id : '{{ node["device_id"] }}'},
+		datatype: "json",
+        success: function(point) {
+				
+				var d1 = new Date(oldTimestamp);
+				var d2 = new Date(point.timestamp[0]);
+				
+                if(d1.getTime() !== d2.getTime()){ 
+				
+				  var channel1 = [point.timestamp[0] , point.channel1[0] ];
+                  id_{{ node["device_id"] }}_frequency.series[0].addPoint(channel1, true, id_{{ node["device_id"] }}_frequency.series[0].data.length > id_{{ node["device_id"] }}_intervalType); 
+				  
+				  var channel2 = [point.timestamp[0], point.channel2[0]];
+				  id_{{ node["device_id"] }}_frequency.series[1].addPoint(channel2, true, id_{{ node["device_id"] }}_frequency.series[1].data.length > id_{{ node["device_id"] }}_intervalType); 
+				  
+				  var channel3 = [point.timestamp[0], point.channel3[0]];
+				  id_{{ node["device_id"] }}_frequency.series[2].addPoint(channel3, true, id_{{ node["device_id"] }}_frequency.series[2].data.length > id_{{ node["device_id"] }}_intervalType);
+				  
+				  var channel4 = [point.timestamp[0], point.channel4[0]];
+				  id_{{ node["device_id"] }}_frequency.series[3].addPoint(channel4, true, id_{{ node["device_id"] }}_frequency.series[3].data.length > id_{{ node["device_id"] }}_intervalType);
+				  
+                  setTimeout(function(){
+                    id_{{ node["device_id"] }}_requestFrequency(point.timestamp[0]);  
+                  }, id_{{ node["device_id"] }}_timeOut);  
+				  
+                }
+                else{
+					
+                  setTimeout(function(){
+                    id_{{ node["device_id"] }}_requestFrequency(oldTimestamp);
+                  }, id_{{ node["device_id"] }}_timeOut);
+				  
+                }                                       
+              
+        },
+        cache: false
+		});
+	}
+	
+	function id_{{ node["device_id"] }}_drawCurrent(){
+	
+	var oldTimestamp = '';
+	
+	id_{{ node["device_id"] }}_current = new Highcharts.Chart({
+        chart: {
+            renderTo: 'id_{{ node["device_id"] }}_current-chart',
+            type: id_{{ node["device_id"] }}_chartType,
+            events: {
+                load: function() {
+					id_{{ node["device_id"] }}_current = this; 
+					id_{{ node["device_id"] }}_requestCurrent(oldTimestamp);
+				}
+            }
+        },
+        title: {
+            text: ''
+        },
+        xAxis: {
+            type: 'linear',
+            tickInterval: 10,
+        },
+        yAxis: {
+            minPadding: 0.2,
+            maxPadding: 0.2,
+            title: {
+                text: 'Value'
+            }
+        },
+        series: [{
+            name: 'Channel 1',
+            data: []
+        },
+		{
+            name: 'Channel 2',
+            data: []
+        },
+		{
+            name: 'Channel 3',
+            data: []
+        },
+		{
+            name: 'Channel 4',
+            data: []
+        }]
+    });        
+		
+	id_{{ node["device_id"] }}_getAllCurrent();
+	}
+	
+	function id_{{ node["device_id"] }}_requestCurrent(oldTimestamp) {
+		
+		$.ajax({
+        url: 'ajax',
+		type: 'POST',
+		async: false,
+		data: {data: 'current' , device_id : '{{ node["device_id"] }}'},
+		datatype: "json",
+        success: function(point) {
+				var d1 = new Date(oldTimestamp);
+				var d2 = new Date(point.timestamp[0]);
+				
+                if(d1.getTime() !== d2.getTime()){
+				  var channel1 = [point.timestamp[0] , point.channel1[0] ];
+                  id_{{ node["device_id"] }}_current.series[0].addPoint(channel1, true, id_{{ node["device_id"] }}_current.series[0].data.length > id_{{ node["device_id"] }}_intervalType); 
+				  
+				  var channel2 = [point.timestamp[0], point.channel2[0]];
+				  id_{{ node["device_id"] }}_current.series[1].addPoint(channel2, true, id_{{ node["device_id"] }}_current.series[1].data.length > id_{{ node["device_id"] }}_intervalType); 
+				  
+				  var channel3 = [point.timestamp[0], point.channel3[0]];
+				  id_{{ node["device_id"] }}_current.series[2].addPoint(channel3, true, id_{{ node["device_id"] }}_current.series[2].data.length > id_{{ node["device_id"] }}_intervalType);
+				  
+				  var channel4 = [point.timestamp[0], point.channel4[0]];
+				  id_{{ node["device_id"] }}_current.series[3].addPoint(channel4, true, id_{{ node["device_id"] }}_current.series[3].data.length > id_{{ node["device_id"] }}_intervalType);
+				  
+                  setTimeout(function(){
+                    id_{{ node["device_id"] }}_requestCurrent(point.timestamp[0]);  
+                  }, id_{{ node["device_id"] }}_timeOut);  
+				  
+                }
+                else{
+					
+                  setTimeout(function(){
+                    id_{{ node["device_id"] }}_requestCurrent(oldTimestamp);
+                  }, id_{{ node["device_id"] }}_timeOut);
+				  
+                }                                       
+              
+        },
+        cache: false
+		});
+	}
+	
+	function id_{{ node["device_id"] }}_drawPower(){
+	
+	var oldTimestamp = '';
+	
+	id_{{ node["device_id"] }}_power = new Highcharts.Chart({
+        chart: {
+            renderTo: 'id_{{ node["device_id"] }}_power-chart',
+            type: id_{{ node["device_id"] }}_chartType,
+            events: {
+                load: function() {
+					id_{{ node["device_id"] }}_power = this; 
+					id_{{ node["device_id"] }}_requestPower(oldTimestamp);
+				}
+            }
+        },
+        title: {
+            text: ''
+        },
+        xAxis: {
+            type: 'linear',
+            tickInterval: 10,
+        },
+        yAxis: {
+            minPadding: 0.2,
+            maxPadding: 0.2,
+            title: {
+                text: 'Value'
+            }
+        },
+        series: [{
+            name: 'Channel 1',
+            data: []
+        },
+		{
+            name: 'Channel 2',
+            data: []
+        },
+		{
+            name: 'Channel 3',
+            data: []
+        },
+		{
+            name: 'Channel 4',
+            data: []
+        }]
+    });        
+	
+	id_{{ node["device_id"] }}_getAllPower();
+	}
+	
+	function id_{{ node["device_id"] }}_requestPower(oldTimestamp) {
+		
+		$.ajax({
+        url: 'ajax',
+		type: 'POST',
+		async: false,
+		data: {data: 'power' , device_id : '{{ node["device_id"] }}'},
+		datatype: "json",
+        success: function(point) {
+				var d1 = new Date(oldTimestamp);
+				var d2 = new Date(point.timestamp[0]);
+				
+                if(d1.getTime() !== d2.getTime()){
+				  var channel1 = [point.timestamp[0] , point.channel1[0]];
+                  id_{{ node["device_id"] }}_power.series[0].addPoint(channel1, true, id_{{ node["device_id"] }}_power.series[0].data.length > id_{{ node["device_id"] }}_intervalType); 
+				  
+				  var channel2 = [point.timestamp[0], point.channel2[0]];
+				  id_{{ node["device_id"] }}_power.series[1].addPoint(channel2, true, id_{{ node["device_id"] }}_power.series[1].data.length > id_{{ node["device_id"] }}_intervalType); 
+				  
+				  var channel3 = [point.timestamp[0], point.channel3[0]];
+				  id_{{ node["device_id"] }}_power.series[2].addPoint(channel3, true, id_{{ node["device_id"] }}_power.series[2].data.length > id_{{ node["device_id"] }}_intervalType);
+				  
+				  var channel4 = [point.timestamp[0], point.channel4[0]];
+				  id_{{ node["device_id"] }}_power.series[3].addPoint(channel4, true, id_{{ node["device_id"] }}_power.series[3].data.length > id_{{ node["device_id"] }}_intervalType);
+				  
+                  setTimeout(function(){
+                    id_{{ node["device_id"] }}_requestPower(point.timestamp[0]);  
+                  }, id_{{ node["device_id"] }}_timeOut);  
+				  
+                }
+                else{
+					
+                  setTimeout(function(){
+                    id_{{ node["device_id"] }}_requestPower(oldTimestamp);
+                  }, id_{{ node["device_id"] }}_timeOut);
+				  
+                }                                       
+              
+        },
+        cache: false
+		});
+	}
+	
+	function id_{{ node["device_id"] }}_drawEnergy(){
+	
+	var oldTimestamp = '';
+	
+	id_{{ node["device_id"] }}_energy = new Highcharts.Chart({
+        chart: {
+            renderTo: 'id_{{ node["device_id"] }}_energy-chart',
+            type: id_{{ node["device_id"] }}_chartType,
+            events: {
+                load: function() {
+					id_{{ node["device_id"] }}_energy = this; 
+					id_{{ node["device_id"] }}_requestEnergy(oldTimestamp);
+				}
+            }
+        },
+        title: {
+            text: ''
+        },
+        xAxis: {
+            type: 'linear',
+            tickInterval: 10,
+        },
+        yAxis: {
+            minPadding: 0.2,
+            maxPadding: 0.2,
+            title: {
+                text: 'Value'
+            }
+        },
+        series: [{
+            name: 'Channel 1',
+            data: []
+        },
+		{
+            name: 'Channel 2',
+            data: []
+        },
+		{
+            name: 'Channel 3',
+            data: []
+        },
+		{
+            name: 'Channel 4',
+            data: []
+        }]
+    })
+	
+	id_{{ node["device_id"] }}_getAllEnergy();
+	}
+	
+	function id_{{ node["device_id"] }}_requestEnergy(oldTimestamp) {
+		
+		$.ajax({
+        url: 'ajax',
+		type: 'POST',
+		async: false,
+		data: {data: 'energy' , device_id : '{{ node["device_id"] }}'},
+		datatype: "json",
+        success: function(point) {
+				var d1 = new Date(oldTimestamp);
+				var d2 = new Date(point.timestamp[0]);
+				
+                if(d1.getTime() !== d2.getTime()){
+				  var channel1 = [point.timestamp[0] , point.channel1[0] ];
+                  id_{{ node["device_id"] }}_energy.series[0].addPoint(channel1, true, id_{{ node["device_id"] }}_energy.series[0].data.length > id_{{ node["device_id"] }}_intervalType); 
+				  
+				  var channel2 = [point.timestamp[0], point.channel2[0]];
+				  id_{{ node["device_id"] }}_energy.series[1].addPoint(channel2, true, id_{{ node["device_id"] }}_energy.series[1].data.length > id_{{ node["device_id"] }}_intervalType); 
+				  
+				  var channel3 = [point.timestamp[0], point.channel3[0]];
+				  id_{{ node["device_id"] }}_energy.series[2].addPoint(channel3, true, id_{{ node["device_id"] }}_energy.series[2].data.length > id_{{ node["device_id"] }}_intervalType);
+				  
+				  var channel4 = [point.timestamp[0], point.channel4[0]];
+				  id_{{ node["device_id"] }}_energy.series[3].addPoint(channel4, true, id_{{ node["device_id"] }}_energy.series[3].data.length > id_{{ node["device_id"] }}_intervalType);
+				  
+                  setTimeout(function(){
+                    id_{{ node["device_id"] }}_requestEnergy(point.timestamp[0]);  
+                  }, id_{{ node["device_id"] }}_timeOut);  
+				  
+                }
+                else{
+					
+                  setTimeout(function(){
+                    id_{{ node["device_id"] }}_requestEnergy(oldTimestamp);
+                  }, id_{{ node["device_id"] }}_timeOut);
+				  
+                }                                       
+              
+        },
+        cache: false
+		});
+	}
+	
+	</script>
+	
+	<script>
+	function id_{{ node["device_id"] }}_getAllVoltage() {
+        
+        $.ajax({
+        url: 'ajax',
+		type: 'POST',
+		data: {data: 'voltage' , device_id : '{{ node["device_id"] }}', type: id_{{ node["device_id"] }}_intervalType},
+		datatype: "json",
+        success: function(point) {
+			id_{{ node["device_id"] }}_voltage.series[0].setData(point.channel1); 
+			id_{{ node["device_id"] }}_voltage.series[1].setData(point.channel2); 
+			id_{{ node["device_id"] }}_voltage.series[2].setData(point.channel3); 
+			id_{{ node["device_id"] }}_voltage.series[3].setData(point.channel4); 			
+        },
+        cache: false
+		});      
+		
+	}
+	
+	function id_{{ node["device_id"] }}_getAllFrequency() {
+        
+        $.ajax({
+        url: 'ajax',
+		type: 'POST',
+		data: {data: 'frequency' , device_id : '{{ node["device_id"] }}', type: id_{{ node["device_id"] }}_intervalType},
+		datatype: "json",
+        success: function(point) {
+
+			id_{{ node["device_id"] }}_frequency.series[0].setData(point.channel1); 
+			id_{{ node["device_id"] }}_frequency.series[1].setData(point.channel2); 
+			id_{{ node["device_id"] }}_frequency.series[2].setData(point.channel3); 
+			id_{{ node["device_id"] }}_frequency.series[3].setData(point.channel4); 			
+        },
+        cache: false
+		});      
+		
+	}
+	
+	function id_{{ node["device_id"] }}_getAllCurrent(){
+		
+		$.ajax({
+        url: 'ajax',
+		type: 'POST',
+		data: {data: 'current' , device_id : '{{ node["device_id"] }}', type: id_{{ node["device_id"] }}_intervalType},
+		datatype: "json",
+        success: function(point) {
+
+			
+			id_{{ node["device_id"] }}_current.series[0].setData(point.channel1); 
+			id_{{ node["device_id"] }}_current.series[1].setData(point.channel2); 
+			id_{{ node["device_id"] }}_current.series[2].setData(point.channel3); 
+			id_{{ node["device_id"] }}_current.series[3].setData(point.channel4); 			
+        },
+        cache: false
+		});      
+
+	}
+	
+	function id_{{ node["device_id"] }}_getAllPower(){
+		
+		$.ajax({
+        url: 'ajax',
+		type: 'POST',
+		data: {data: 'power' , device_id : '{{ node["device_id"] }}', type: id_{{ node["device_id"] }}_intervalType},
+		datatype: "json",
+        success: function(point) {
+
+			id_{{ node["device_id"] }}_power.series[0].setData(point.channel1); 
+			id_{{ node["device_id"] }}_power.series[1].setData(point.channel2); 
+			id_{{ node["device_id"] }}_power.series[2].setData(point.channel3); 
+			id_{{ node["device_id"] }}_power.series[3].setData(point.channel4); 			
+        },
+        cache: false
+		});      
+
+	}
+	
+	function id_{{ node["device_id"] }}_getAllEnergy(){
+		
+		$.ajax({
+        url: 'ajax',
+		type: 'POST',
+		data: {data: 'energy' , device_id : '{{ node["device_id"] }}', type: id_{{ node["device_id"] }}_intervalType},
+		datatype: "json",
+        success: function(point) {
+
+			id_{{ node["device_id"] }}_energy.series[0].setData(point.channel1); 
+			id_{{ node["device_id"] }}_energy.series[1].setData(point.channel2); 
+			id_{{ node["device_id"] }}_energy.series[2].setData(point.channel3); 
+			id_{{ node["device_id"] }}_energy.series[3].setData(point.channel4); 			
+        },
+        cache: false
+		});      
+
+	}
+	</script>
+	
+	<script>
+	
+		$('#id_{{ node["device_id"] }}_chartType').on('change', function (event) {
+			
+			var charttype = $(this).val();
+			
+			id_{{ node["device_id"] }}_voltage.update({
+				chart: {
+					type: charttype
+				}
+			});
+			
+			id_{{ node["device_id"] }}_frequency.update({
+				chart: {
+					type: charttype
+				}
+			});
+			
+			id_{{ node["device_id"] }}_current.update({
+				chart: {
+					type: charttype
+				}
+			});
+			
+			id_{{ node["device_id"] }}_power.update({
+				chart: {
+					type: charttype
+				}
+			});
+			
+			id_{{ node["device_id"] }}_energy.update({
+				chart: {
+					type: charttype
+				}
+			});
+
+        });
+		
+		$('#id_{{ node["device_id"] }}_intervalType').on('change', function (event) {
+			
+			id_{{ node["device_id"] }}_intervalType = $(this).val();
+			
+			id_{{ node["device_id"] }}_getAllVoltage();
+			id_{{ node["device_id"] }}_getAllCurrent();
+			id_{{ node["device_id"] }}_getAllEnergy();
+			id_{{ node["device_id"] }}_getAllFrequency();
+			id_{{ node["device_id"] }}_getAllPower();
+
+        });
+		
+		$('#id_{{ node["device_id"] }}_averageInterval').on('change', function (event) {
+		
+			id_{{ node["device_id"] }}_calculateAverage();
+			id_{{ node["device_id"] }}_calculateMaxMin();
+
+        });
+		
+		$('.tab-pane').resize(function(){
+			
+			id_{{ node["device_id"] }}_voltage.reflow();
+			id_{{ node["device_id"] }}_current.reflow();
+			id_{{ node["device_id"] }}_power.reflow();
+			id_{{ node["device_id"] }}_frequency.reflow();
+			id_{{ node["device_id"] }}_energy.reflow();
+		});
+		
+		$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+		  id_{{ node["device_id"] }}_calculateAverage();  
+		  id_{{ node["device_id"] }}_calculateMaxMin();		  
+		});
+		
+		function id_{{ node["device_id"] }}_calculateAverage()
+		{
+			var v = $('#id_{{ node["device_id"] }}_tablist .active').text();
+			v = v.trim();
+			var interval = $('#id_{{ node["device_id"] }}_averageInterval').val();
+			precision = 4;
+			
+			$.ajax({
+			url: 'ajax',
+			type: 'POST',
+			data: {device_id : '{{ node["device_id"] }}' , purpose : 'average', interval: interval},
+			datatype: "json",
+			success: function(point) {
+				
+				var channel_1_value = "Nil";
+				var channel_2_value = "Nil";
+				var channel_3_value = "Nil";
+				var channel_4_value = "Nil";
+				
+				var channel_name = "Average " + v;
+				 
+				switch(String(v.toLowerCase())){
+					
+					case "voltage": 
+						channel_1_value = point.channel1.voltage;
+						channel_2_value = point.channel2.voltage;
+						channel_3_value = point.channel3.voltage;
+						channel_4_value = point.channel4.voltage;
+						break;
+					case "frequency": 
+						channel_1_value = point.channel1.frequency;
+						channel_2_value = point.channel2.frequency;
+						channel_3_value = point.channel3.frequency;
+						channel_4_value = point.channel4.frequency;
+						break;
+					case "current": 
+						channel_1_value = point.channel1.current;
+						channel_2_value = point.channel2.current;
+						channel_3_value = point.channel3.current;
+						channel_4_value = point.channel4.current;
+						break;
+					case "power": 
+						channel_1_value = point.channel1.power;
+						channel_2_value = point.channel2.power;
+						channel_3_value = point.channel3.power;
+						channel_4_value = point.channel4.power;
+						break;
+					case "energy": 
+						channel_1_value = point.channel1.energy;
+						channel_2_value = point.channel2.energy;
+						channel_3_value = point.channel3.energy;
+						channel_4_value = point.channel4.energy;
+						break;					
+					default: 
+						break;
+				}
+				
+				$('.id_{{ node["device_id"] }}_channel-name').each(function() {
+					$(this).html( channel_name );
+				});
+				
+		
+				if(channel_1_value != "Nil")
+					$('#id_{{ node["device_id"] }}_channel_1_value').text(parseFloat(channel_1_value).toFixed( precision ));
+				else
+					$('#id_{{ node["device_id"] }}_channel_1_value').text(channel_1_value);
+				if(channel_2_value != "Nil")
+					$('#id_{{ node["device_id"] }}_channel_2_value').text(parseFloat(channel_2_value).toFixed( precision ));
+				else
+					$('#id_{{ node["device_id"] }}_channel_2_value').text(channel_2_value);
+				if(channel_3_value != "Nil")
+					$('#id_{{ node["device_id"] }}_channel_3_value').text(parseFloat(channel_3_value).toFixed( precision ));
+				else
+					$('#id_{{ node["device_id"] }}_channel_3_value').text(channel_3_value);
+				if(channel_4_value != "Nil")
+					$('#id_{{ node["device_id"] }}_channel_4_value').text(parseFloat(channel_4_value).toFixed( precision ));
+				else
+					$('#id_{{ node["device_id"] }}_channel_4_value').text(channel_4_value);
+				
+			},
+			cache: false
+			});  
+		}
+		
+		function id_{{ node["device_id"] }}_calculateMaxMin()
+		{
+			var v = $('#id_{{ node["device_id"] }}_tablist .active').text();
+			v = v.trim();
+			var interval = $('#id_{{ node["device_id"] }}_averageInterval').val();
+			precision = 4;
+			
+			$.ajax({
+			url: 'ajax',
+			type: 'POST',
+			data: {device_id : '{{ node["device_id"] }}' , purpose : 'maxmin', interval: interval},
+			datatype: "json",
+			success: function(point) {
+				
+				var channel_1_max_value = "Nil";
+				var channel_2_max_value = "Nil";
+				var channel_3_max_value = "Nil";
+				var channel_4_max_value = "Nil";
+				
+				var channel_1_min_value = "Nil";
+				var channel_2_min_value = "Nil";
+				var channel_3_min_value = "Nil";
+				var channel_4_min_value = "Nil";
+				
+				var channel_name = "Average " + v;
+				 
+				switch(String(v.toLowerCase())){
+					
+					case "voltage": 
+						channel_1_max_value = point.channel1_max.voltage;
+						channel_2_max_value = point.channel2_max.voltage;
+						channel_3_max_value = point.channel3_max.voltage;
+						channel_4_max_value = point.channel4_max.voltage;
+						channel_1_min_value = point.channel1_min.voltage;
+						channel_2_min_value = point.channel2_min.voltage;
+						channel_3_min_value = point.channel3_min.voltage;
+						channel_4_min_value = point.channel4_min.voltage;
+						break;
+					case "frequency": 
+						channel_1_max_value = point.channel1_max.frequency;
+						channel_2_max_value = point.channel2_max.frequency;
+						channel_3_max_value = point.channel3_max.frequency;
+						channel_4_max_value = point.channel4_max.frequency;
+						channel_1_min_value = point.channel1_min.frequency;
+						channel_2_min_value = point.channel2_min.frequency;
+						channel_3_min_value = point.channel3_min.frequency;
+						channel_4_min_value = point.channel4_min.frequency;
+						break;
+					case "current": 
+						channel_1_max_value = point.channel1_max.current;
+						channel_2_max_value = point.channel2_max.current;
+						channel_3_max_value = point.channel3_max.current;
+						channel_4_max_value = point.channel4_max.current;
+						channel_1_min_value = point.channel1_min.current;
+						channel_2_min_value = point.channel2_min.current;
+						channel_3_min_value = point.channel3_min.current;
+						channel_4_min_value = point.channel4_min.current;
+						break;
+					case "power": 
+						channel_1_max_value = point.channel1_max.power;
+						channel_2_max_value = point.channel2_max.power;
+						channel_3_max_value = point.channel3_max.power;
+						channel_4_max_value = point.channel4_max.power;
+						channel_1_min_value = point.channel1_min.power;
+						channel_2_min_value = point.channel2_min.power;
+						channel_3_min_value = point.channel3_min.power;
+						channel_4_min_value = point.channel4_min.power;
+						break;
+					case "energy": 
+						channel_1_max_value = point.channel1_max.energy;
+						channel_2_max_value = point.channel2_max.energy;
+						channel_3_max_value = point.channel3_max.energy;
+						channel_4_max_value = point.channel4_max.energy;
+						channel_1_min_value = point.channel1_min.energy;
+						channel_2_min_value = point.channel2_min.energy;
+						channel_3_min_value = point.channel3_min.energy;
+						channel_4_min_value = point.channel4_min.energy;
+						break;					
+					default: 
+						break;
+				}
+				
+				$('.id_{{ node["device_id"] }}_channel-name').each(function() {
+					$(this).html( channel_name );
+				});
+				
+		
+				if(channel_1_max_value != "Nil")
+					$('#id_{{ node["device_id"] }}_channel_1_max_value').text(parseFloat(channel_1_max_value).toFixed( precision ));
+				else
+					$('#id_{{ node["device_id"] }}_channel_1_max_value').text(channel_1_max_value);
+				if(channel_2_max_value != "Nil")
+					$('#id_{{ node["device_id"] }}_channel_2_max_value').text(parseFloat(channel_2_max_value).toFixed( precision ));
+				else
+					$('#id_{{ node["device_id"] }}_channel_2_max_value').text(channel_2_max_value);
+				if(channel_3_max_value != "Nil")
+					$('#id_{{ node["device_id"] }}_channel_3_max_value').text(parseFloat(channel_3_max_value).toFixed( precision ));
+				else
+					$('#id_{{ node["device_id"] }}_channel_3_max_value').text(channel_3_max_value);
+				if(channel_4_max_value != "Nil")
+					$('#id_{{ node["device_id"] }}_channel_4_max_value').text(parseFloat(channel_4_max_value).toFixed( precision ));
+				else
+					$('#id_{{ node["device_id"] }}_channel_4_max_value').text(channel_4_max_value);
+					
+				if(channel_1_min_value != "Nil")
+					$('#id_{{ node["device_id"] }}_channel_1_min_value').text(parseFloat(channel_1_min_value).toFixed( precision ));
+				else
+					$('#id_{{ node["device_id"] }}_channel_1_min_value').text(channel_1_min_value);
+				if(channel_2_min_value != "Nil")
+					$('#id_{{ node["device_id"] }}_channel_2_min_value').text(parseFloat(channel_2_min_value).toFixed( precision ));
+				else
+					$('#id_{{ node["device_id"] }}_channel_2_min_value').text(channel_2_min_value);
+				if(channel_3_min_value != "Nil")
+					$('#id_{{ node["device_id"] }}_channel_3_min_value').text(parseFloat(channel_3_min_value).toFixed( precision ));
+				else
+					$('#id_{{ node["device_id"] }}_channel_3_min_value').text(channel_3_min_value);
+				if(channel_4_min_value != "Nil")
+					$('#id_{{ node["device_id"] }}_channel_4_min_value').text(parseFloat(channel_4_min_value).toFixed( precision ));
+				else
+					$('#id_{{ node["device_id"] }}_channel_4_min_value').text(channel_4_min_value);
+				
+			},
+			cache: false
+			});  
+		}
+		
+	</script>
+	{% endfor %}
+	{% endif %}
+	

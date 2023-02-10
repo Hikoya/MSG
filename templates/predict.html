@@ -1,0 +1,44 @@
+ {% include "header.html" %}
+	<style>
+
+	body.modal-open div.modal-backdrop { 
+		z-index: 0; 
+	}
+
+	</style>
+        <div class="page-wrapper">
+            <div class="container-fluid">
+			
+				{% if table is defined and table|length > 0 %}
+				{% for channel in table %}
+				
+				<div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body"> 
+								<div class = "row">
+									<div class = "col-md-12 col-xs-12">
+										
+										{{ channel|safe }}
+										
+									</div>
+									
+								  </div>
+							</div>
+                        </div>
+                    </div>
+                </div>
+				
+				{% endfor %}
+				{% endif %}
+				
+            </div>            
+        </div>
+    
+    <script src="/static/js/lib/datatables/datatables.min.js"></script>
+    <script src="/static/js/lib/datatables/datatables-init.js"></script>
+	
+
+	 {% include "footer.html" %}
+	 
+	

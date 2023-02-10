@@ -1,0 +1,147 @@
+	{% include "header.html" %}
+	
+        <div class="page-wrapper">
+            <div class="container-fluid">
+					
+				<section>
+                <div class="row">
+					<div class="col-md-12">				
+					<div class="card">              
+						<div class="card-body">
+                            <h4 class="card-title">Device</h4>
+                            <h6 class="card-subtitle">List of registered Devices</h6>
+                            <div class="table-responsive m-t-20">
+                                <table id="myTable" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Device ID</th>
+											<th>Owner</th>
+											<th>Description</th>
+											<th>Location</th>
+                                        </tr>
+                                        </thead>
+                                    <tbody>
+                                       	{% if table %}
+										{{ table|safe  }}			
+										{% endif %}														
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+						</div>
+                    </div>
+				</div>
+				</section>
+				
+				<div class = "row">
+					 <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-title">
+                                <h4>Register New Device</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="basic-form">
+                                    <form method='post' accept-charset='UTF-8'>
+                                        <div class="form-group">
+                                            <label>Device ID</label>
+                                            <input type="text" id="deviceID" name="deviceID" class="form-control"  required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Description</label>
+                                            <input type="text" id="description" name="description" class="form-control"  required>
+                                        </div>
+										<div class="form-group">
+                                            <label>Location</label>
+                                            <input type="text" id="location" name="location" class="form-control"  required>
+                                        </div>
+                                    
+                                        <button type="submit" id="register" name="register" class="btn btn-default">Register</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+					
+					<div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-title">
+                                <h4>Edit Device</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="basic-form">
+                                    <form method='post' accept-charset='UTF-8'>
+										
+										<div class="form-group">
+											<label>Device ID</label>
+											<div class = "select-style" style="width:200px;">
+												<select id="deviceID_edit" name="deviceID_edit" onChange="populate();">
+													{% if options %}
+													{{ options|safe  }}			
+													{% endif %}
+												</select>
+											</div>
+										</div>
+										
+                                        <div class="form-group">
+                                            <label>Description</label>
+                                            <input type="text" name="description_edit" id="description_edit" class="form-control" required>
+                                        </div>
+										<div class="form-group">
+                                            <label>Location</label>
+                                            <input type="text" name="location_edit" id="location_edit" class="form-control"  required>
+                                        </div>
+										
+										<div class="form-group">
+										<div class="row">
+										<div class="col-md-3">
+										  <button type="submit" id="edit" name="edit" class="btn btn-default">Edit</button>
+										</div>
+										<div class="col-md-3">
+											<button type="submit" id="delete" name="delete" class="btn btn-default">Delete</button>
+										</div>
+										</div>
+									    </div>
+                                       
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+				</div>
+            </div>            
+        </div>
+    
+    <script src="/static/js/lib/datatables/datatables.min.js"></script>
+    <script src="/static/js/lib/datatables/datatables-init.js"></script>
+	
+	<script>
+	
+	
+		function populate(){
+		
+		var serialno =  $('#deviceID_edit').val();
+			
+		$.ajax({
+		  url: 'ajax',
+		  type: 'POST',
+		  data: {device_id: serialno, purpose: 'edit'},
+		  datatype: "json",
+		  success: function(data) {
+		  
+			 //console.log(data.description);
+			 $('#description_edit').val(data.description);  
+			 $('#location_edit').val(data.location);
+		  }
+		}); // end ajax call
+		
+		}
+	
+
+	</script>
+	
+	{% include "footer.html" %}
+
+	
+	
+	
+		
